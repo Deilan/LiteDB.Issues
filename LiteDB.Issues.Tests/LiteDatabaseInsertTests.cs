@@ -27,31 +27,31 @@ namespace LiteDB.Issues.Tests
         [Fact]
         public void InsertRecord_WithNullableIntId_Succeed()
         {
-            var col = _liteDatabaseFixture.Instance.GetCollection<IntCustomer>();
+            var customersCollection = _liteDatabaseFixture.Instance.GetCollection<IntCustomer>();
 
             var customer = new IntCustomer
             {
                 Name = "John Doe",
             };
 
-            col.Insert(customer);
+            customersCollection.Insert(customer);
 
-            Assert.True(col.Exists(x => x.Id == customer.Id));
+            Assert.True(customersCollection.Exists(x => x.Id == customer.Id));
         }
 
         [Fact]
         public void InsertRecord_WithNullableGuidId_Succeed()
         {
-            var col = _liteDatabaseFixture.Instance.GetCollection<GuidCustomer>();
+            var customersCollection = _liteDatabaseFixture.Instance.GetCollection<GuidCustomer>();
 
             var customer = new GuidCustomer
             {
                 Name = "John Doe",
             };
 
-            col.Insert(customer);
+            customersCollection.Insert(customer);
 
-            Assert.True(col.Exists(x => x.Id == customer.Id));
+            Assert.True(customersCollection.Exists(x => x.Id == customer.Id));
         }
 
     }
