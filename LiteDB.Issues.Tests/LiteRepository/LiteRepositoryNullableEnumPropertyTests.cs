@@ -1,10 +1,11 @@
-using Xunit;
 using System.Linq;
+using LiteDB.Issues.Tests.Common;
+using Xunit;
 
-namespace LiteDB.Issues.Tests
+namespace LiteDB.Issues.Tests.LiteRepository
 {
 
-    public class LiteRepositoryEnumPropertyTests : IClassFixture<LiteRepositoryFixture>
+    public class LiteRepositoryNullableEnumPropertyTests : IClassFixture<LiteRepositoryFixture>
     {
         public enum CustomerType
         {
@@ -16,11 +17,11 @@ namespace LiteDB.Issues.Tests
         {
             public int Id { get; set; }
             public string Name { get; set; }
-            public CustomerType Type { get; set; }
+            public CustomerType? Type { get; set; }
         }
         private readonly LiteRepositoryFixture _liteRepositoryFixture;
 
-        public LiteRepositoryEnumPropertyTests(LiteRepositoryFixture liteRepositoryFixture)
+        public LiteRepositoryNullableEnumPropertyTests(LiteRepositoryFixture liteRepositoryFixture)
         {
             _liteRepositoryFixture = liteRepositoryFixture;
         }
@@ -58,6 +59,25 @@ namespace LiteDB.Issues.Tests
 
             var customers =liteRepository.Query<Customer>()
                 .Where(x => x.Type == CustomerType.New)
+                .ToArray();
+
+            Assert.Single(customers.Where(c => c.Id == customer.Id));
+        }
+
+        [Fact]
+        public void QueryUsingLinqExpression_ByEnumPropertyValue_ReturnsAllStoredRecords()
+        {
+            var liteRepository = _liteRepositoryFixture.Instance;
+            var customer = new Customer
+            {
+                Name = "John Doe",
+                Type = CustomerType.New
+            };
+
+            liteRepository.Insert(customer);
+
+            var customers =liteRepository.Query<Customer>()
+                .Where(x => x.Type.Value == CustomerType.New)
                 .ToArray();
 
             Assert.Single(customers.Where(c => c.Id == customer.Id));

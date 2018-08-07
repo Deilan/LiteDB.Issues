@@ -1,18 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
-namespace LiteDB.Issues.Tests
+namespace LiteDB.Issues.Tests.Common
 {
-    public sealed class LiteDatabaseFixture : IDisposable
+    public sealed class LiteRepositoryFixture : IDisposable
     {
         private readonly string _fileName;
-        public LiteDatabase Instance { get; }
-        public LiteDatabaseFixture()
+        public LiteDB.LiteRepository Instance { get; }
+        public LiteRepositoryFixture()
         {
             _fileName = Path.GetTempFileName();
-            Instance = new LiteDatabase(_fileName);
+            Instance = new LiteDB.LiteRepository(_fileName);
         }
 
         public void Dispose()

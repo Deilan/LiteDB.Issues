@@ -1,7 +1,8 @@
 ﻿using System;
+using LiteDB.Issues.Tests.Common;
 using Xunit;
 
-namespace LiteDB.Issues.Tests
+namespace LiteDB.Issues.Tests.LiteRepository
 {
 
     public class LiteRepositoryInsertTests : IClassFixture<LiteRepositoryFixture>
