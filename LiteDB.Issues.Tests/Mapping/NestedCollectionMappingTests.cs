@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using LiteDB.Issues.Tests.Common;
 using Xunit;
 
-namespace LiteDB.Issues.Tests
+namespace LiteDB.Issues.Tests.Mapping
 {
     public class NestedCollectionMappingTests : IClassFixture<LiteDatabaseFixture>
     {
