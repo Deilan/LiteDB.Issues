@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using LiteDB.Issues.Tests.Common;
 using Xunit;
 
 namespace LiteDB.Issues.Tests.Mapping
 {
-    public class NestedCollectionMappingTests : IClassFixture<LiteDatabaseFixture>
+    public class NestedCollectionMappingTests : IDisposable
     {
         private readonly LiteDatabaseFixture _liteDatabaseFixture;
 
@@ -19,9 +20,9 @@ namespace LiteDB.Issues.Tests.Mapping
             public Customer Customer { get; set; }
         }
 
-        public NestedCollectionMappingTests(LiteDatabaseFixture liteDatabaseFixture)
+        public NestedCollectionMappingTests()
         {
-            _liteDatabaseFixture = liteDatabaseFixture;
+            _liteDatabaseFixture = new LiteDatabaseFixture();
         }
 
         [Fact]
@@ -49,6 +50,11 @@ namespace LiteDB.Issues.Tests.Mapping
 
             // Assert
             Assert.Null(persistedCustomer.Orders.First().Customer);
+        }
+
+        public void Dispose()
+        {
+            this._liteDatabaseFixture.Dispose();
         }
     }
 }

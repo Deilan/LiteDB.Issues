@@ -1,11 +1,11 @@
+using System;
 using System.Linq;
 using LiteDB.Issues.Tests.Common;
 using Xunit;
 
 namespace LiteDB.Issues.Tests.LiteDatabase
 {
-
-    public class LiteDatabaseNullableEnumPropertyTests : IClassFixture<LiteDatabaseFixture>
+    public class LiteDatabaseNullableEnumPropertyTests : IDisposable
     {
         private readonly LiteDatabaseFixture _liteDatabaseFixture;
 
@@ -22,9 +22,9 @@ namespace LiteDB.Issues.Tests.LiteDatabase
             public CustomerType? Type { get; set; }
         }
 
-        public LiteDatabaseNullableEnumPropertyTests(LiteDatabaseFixture liteDatabaseFixture)
+        public LiteDatabaseNullableEnumPropertyTests()
         {
-            _liteDatabaseFixture = liteDatabaseFixture;
+            _liteDatabaseFixture = new LiteDatabaseFixture();
         }
 
         [Fact]
@@ -85,6 +85,11 @@ namespace LiteDB.Issues.Tests.LiteDatabase
                 .ToArray();
 
             Assert.Single(customers.Where(c => c.Id == customer.Id));
+        }
+
+        public void Dispose()
+        {
+            this._liteDatabaseFixture.Dispose();
         }
     }
 }

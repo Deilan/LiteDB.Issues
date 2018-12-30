@@ -4,7 +4,7 @@ using Xunit;
 
 namespace LiteDB.Issues.Tests.LiteDatabase
 {
-    public class LiteDatabaseInsertTests : IClassFixture<LiteDatabaseFixture>
+    public class LiteDatabaseInsertTests : IDisposable
     {
         private readonly LiteDatabaseFixture _liteDatabaseFixture;
 
@@ -20,9 +20,9 @@ namespace LiteDB.Issues.Tests.LiteDatabase
             public string Name { get; set; }
         }
 
-        public LiteDatabaseInsertTests(LiteDatabaseFixture liteDatabaseFixture)
+        public LiteDatabaseInsertTests()
         {
-            _liteDatabaseFixture = liteDatabaseFixture;
+            _liteDatabaseFixture = new LiteDatabaseFixture();
         }
 
         [Fact]
@@ -55,5 +55,9 @@ namespace LiteDB.Issues.Tests.LiteDatabase
             Assert.True(customersCollection.Exists(x => x.Id == customer.Id));
         }
 
+        public void Dispose()
+        {
+            this._liteDatabaseFixture.Dispose();
+        }
     }
 }

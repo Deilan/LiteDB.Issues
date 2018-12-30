@@ -4,8 +4,7 @@ using Xunit;
 
 namespace LiteDB.Issues.Tests.LiteRepository
 {
-
-    public class LiteRepositoryInsertTests : IClassFixture<LiteRepositoryFixture>
+    public class LiteRepositoryInsertTests : IDisposable
     {
         public class IntCustomer
         {
@@ -20,9 +19,9 @@ namespace LiteDB.Issues.Tests.LiteRepository
         }
 
         private readonly LiteRepositoryFixture _liteRepositoryFixture;
-        public LiteRepositoryInsertTests(LiteRepositoryFixture liteRepositoryFixture)
+        public LiteRepositoryInsertTests()
         {
-            _liteRepositoryFixture = liteRepositoryFixture;
+            _liteRepositoryFixture = new LiteRepositoryFixture();
         }
 
         [Fact]
@@ -47,5 +46,9 @@ namespace LiteDB.Issues.Tests.LiteRepository
             _liteRepositoryFixture.Instance.Insert(customer);
         }
 
+        public void Dispose()
+        {
+            this._liteRepositoryFixture.Dispose();
+        }
     }
 }
