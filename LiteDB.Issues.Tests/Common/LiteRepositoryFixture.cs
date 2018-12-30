@@ -5,18 +5,18 @@ namespace LiteDB.Issues.Tests.Common
 {
     public sealed class LiteRepositoryFixture : IDisposable
     {
-        private readonly string _fileName;
+        private readonly MemoryStream _stream;
         public LiteDB.LiteRepository Instance { get; }
         public LiteRepositoryFixture()
         {
-            _fileName = Path.GetTempFileName();
-            Instance = new LiteDB.LiteRepository(_fileName);
+            _stream = new MemoryStream();
+            Instance = new LiteDB.LiteRepository(_stream);
         }
 
         public void Dispose()
         {
             Instance.Dispose();
-            File.Delete(_fileName);
+            _stream.Dispose();
         }
     }
 }
