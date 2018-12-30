@@ -2,12 +2,12 @@
 using LiteDB.Issues.Tests.Common;
 using Xunit;
 
-namespace LiteDB.Issues.Tests
+namespace LiteDB.Issues.Tests.ModelChange
 {
     public class SchemelessCollectionModelPropertyTypeChangeTests : IDisposable
     {
-        private const string CustomerCollectionName = "Customer";
         private readonly LiteDatabaseFixture _liteDatabaseFixture;
+        private const string CustomerCollectionName = "Customer";
 
         public class NullableIntCustomer
         {

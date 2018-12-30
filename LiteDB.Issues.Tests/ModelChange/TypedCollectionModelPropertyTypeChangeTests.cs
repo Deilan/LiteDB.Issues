@@ -2,7 +2,7 @@
 using LiteDB.Issues.Tests.Common;
 using Xunit;
 
-namespace LiteDB.Issues.Tests
+namespace LiteDB.Issues.Tests.ModelChange
 {
     public class TypedCollectionModelPropertyTypeChangeTests : IDisposable
     {
